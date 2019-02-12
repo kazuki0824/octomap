@@ -1,5 +1,6 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8.8)
+cmake_minimum_required(VERSION 3.5)
 PROJECT( octomap-distribution )
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 ENABLE_TESTING()  # enable CTest environment of subprojects
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)  # enables -fPIC in applicable compilers (required to avoid link errors in some cases)
@@ -17,10 +18,10 @@ ADD_SUBDIRECTORY( octomap )
 
 if(BUILD_OCTOVIS_SUBPROJECT)
 	ADD_SUBDIRECTORY( octovis )
-endif()		
+endif()
 
-if(BUILD_DYNAMICETD3D_SUBPROJECT)	
+if(BUILD_DYNAMICETD3D_SUBPROJECT)
 	ADD_SUBDIRECTORY( dynamicEDT3D )
-endif()		
+endif()
 
-
+ament_package()

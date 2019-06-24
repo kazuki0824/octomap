@@ -1,10 +1,14 @@
 cmake_minimum_required(VERSION 3.5)
 PROJECT( dynamicEDT3D )
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+# Default to C++14
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 14)
+endif()
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra)
+endif()
 
 include(CTest)
-
-find_package(ament_cmake REQUIRED)
 
 # version (e.g. for packaging)
 set(DYNAMICEDT3D_MAJOR_VERSION 1)
@@ -172,5 +176,3 @@ MESSAGE (STATUS "Compile dynamicEDT3D using: make")
 MESSAGE (STATUS "Install dynamicEDT3D using: make install")
 MESSAGE (STATUS "    (be sure to set the correct CMAKE_INSTALL_PREFIX before)")
 MESSAGE (STATUS "Compile API-documentation using: make docs_dynamicEDT3D\n")
-
-ament_package()

@@ -18,7 +18,6 @@
   <build_depend>octomap</build_depend>
 
   <exec_depend>octomap</exec_depend>
-  <!-- <exec_depend>catkin</exec_depend> -->
 
   <export>
     <build_type>ament_cmake</build_type>

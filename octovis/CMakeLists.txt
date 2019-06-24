@@ -1,10 +1,14 @@
 cmake_minimum_required(VERSION 3.5)
 PROJECT( octovis )
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+# Default to C++14
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 14)
+endif()
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra)
+endif()
 
 include(CTest)
-
-find_package(ament_cmake REQUIRED)
 
 # # version (e.g. for packaging)
 set(OCTOVIS_MAJOR_VERSION 1)
@@ -156,7 +160,7 @@ IF(BUILD_VIEWER)
   file(GLOB octovis_HDRS  *.h *.hxx *.hpp)
   install(FILES ${octovis_HDRS} DESTINATION include/octovis)
 
-  # Install catkin package.xml
+  # Install ament package.xml
   install(FILES package.xml DESTINATION share/octovis)
 
 ELSE()
@@ -164,5 +168,3 @@ ELSE()
 	MESSAGE ( "This will not affect the compilation of the stand-alone library and tools (octomap)")
     MESSAGE ( "See README.txt or http://octomap.sf.net for further information.\n")
 ENDIF()
-
-ament_package()

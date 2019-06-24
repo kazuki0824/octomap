@@ -1,10 +1,14 @@
 cmake_minimum_required(VERSION 3.5)
 PROJECT( octomap )
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+# Default to C++14
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 14)
+endif()
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra)
+endif()
 
 include(CTest)
-
-find_package(ament_cmake REQUIRED)
 
 # version (e.g. for packaging)
 set(OCTOMAP_MAJOR_VERSION 1)
@@ -71,7 +75,7 @@ install(FILES ${octomap_HDRS}	DESTINATION include/octomap)
 file(GLOB octomap_math_HDRS ${PROJECT_SOURCE_DIR}/include/octomap/math/*.h)
 install(FILES ${octomap_math_HDRS}	DESTINATION include/octomap/math)
 
-# Install catkin package.xml
+# Install ament package.xml
 install(FILES package.xml DESTINATION share/octomap)
 
 # uninstall target
@@ -174,5 +178,3 @@ MESSAGE (STATUS "Compile octomap using: make")
 MESSAGE (STATUS "Install octomap using: make install")
 MESSAGE (STATUS "    (be sure to set the correct CMAKE_INSTALL_PREFIX before)")
 MESSAGE (STATUS "Compile API-documentation using: make docs\n")
-
-ament_package()
